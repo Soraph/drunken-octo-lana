@@ -1,0 +1,84 @@
+<html><head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>Bubbling demo by Soraph</title>
+  
+  <script type="text/javascript" src="http://code.jquery.com/jquery-1.8.3.js"></script>
+  <link rel="stylesheet" type="text/css" href="/css/normalize.css">
+  
+  <script type="text/javascript" src="http://code.jquery.com/ui/1.9.2/jquery-ui.js"></script>
+  <link rel="stylesheet" type="text/css" href="http://code.jquery.com/ui/1.9.2/themes/base/jquery-ui.css">
+  
+  <link rel="stylesheet" type="text/css" href="/css/result-light.css">
+  <script type="text/javascript" src="http://github.com/weepy/jquery.path/raw/master/jquery.path.js"></script>
+  
+  <style type="text/css">
+	.bubble1 {
+		border: 2px solid #000;
+		border-radius: 100px;
+		height: 100px;
+		width: 100px;
+		position: absolute;
+		bottom: -104px;
+		left: 50%;
+	}
+  </style>
+  
+<script type="text/javascript">//<![CDATA[ 
+$(window).load(function(){
+
+jQuery('document').ready(function () {
+  jQuery('.mytext').hide();
+    
+  jQuery('.bubble1').on('click', function () {
+    jQuery(this).stop(true,true).hide('explode', { pieces: 128 } , 1000, function() { jQuery('.mytext').show(); } );
+  });
+    
+  var Bubbling =  {
+        init: function() {
+            var widthDifference = jQuery('.bubble1').width()/100*10;
+            var heightDifference = jQuery('.bubble1').height()/100*10;
+			
+            var intervalTime = 901;
+            var infiniteLoop = setInterval(function() {
+              jQuery('.bubble1').animate( {
+                width: '+='+widthDifference,
+                height: '+='+heightDifference,
+                left: '-='+widthDifference,
+                top: '-='+heightDifference, }, { duration: 450 } );
+              jQuery('.bubble1').animate( {
+                width: '-='+widthDifference,
+                height: '-='+heightDifference,
+                left: '+='+widthDifference,
+                top: '+='+heightDifference, }, { duration: 450 } );
+            }, intervalTime);
+        }
+  };
+  
+  
+  Bubbling.init();
+  
+  var bezier_params = {
+    start: {
+      x: jQuery('.bubble1').offset().left-52,
+      y: jQuery('.bubble1').offset().top,
+    },
+    end: {
+      x: jQuery('.bubble1').offset().left-52,
+      y: 110,
+    }
+  }
+
+  jQuery('.bubble1').animate({path: new jQuery.path.bezier(bezier_params)}, { duration: 2000 } );  
+ });
+});//]]>  
+
+</script>
+
+
+</head>
+<body>
+ 
+    <div class="mytext" style="display: none;">Lorem Ipsum</div>
+    <div class="bubble1"></div>
+  
+</body></html>
