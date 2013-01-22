@@ -33,37 +33,40 @@ jQuery('document').ready(function () {
     jQuery(this).stop(true,true).hide('explode', { pieces: 128 } , 1000, function() { jQuery('.mytext').show(); } );
   });
     
-  var Bubbling =  {
-        init: function() {
-            var widthDifference = jQuery('.bubble1').width()/100*10;
-            var heightDifference = jQuery('.bubble1').height()/100*10;
-			
-            var intervalTime = 901;
-            var infiniteLoop = setInterval(function() {
-              jQuery('.bubble1').animate( {
-                width: '+='+widthDifference,
-                height: '+='+heightDifference,
-                left: '-='+widthDifference,
-                top: '-='+heightDifference, }, { duration: 450 } );
-              jQuery('.bubble1').animate( {
-                width: '-='+widthDifference,
-                height: '-='+heightDifference,
-                left: '+='+widthDifference,
-                top: '+='+heightDifference, }, { duration: 450 } );
-            }, intervalTime);
-        }
-  };
-  
-  
-  Bubbling.init();
+  var bubbleWidth = jQuery('.bubble1').width();
+  var bubbleHeight = jQuery('.bubble1').height();
+    
+  var Bubbling =  {
+        init: function() {
+            var widthDifference = bubbleWidth/100*10;
+            var heightDifference = bubbleHeight/100*10;
+
+            var intervalTime = 901;
+            var infiniteLoop = setInterval(function() {
+              jQuery('.bubble1').animate( {
+                width: '+='+widthDifference,
+                height: '+='+heightDifference,
+                left: '-='+widthDifference,
+                top: '-='+heightDifference, }, { duration: 450 } );
+              jQuery('.bubble1').animate( {
+                width: '-='+widthDifference,
+                height: '-='+heightDifference,
+                left: '+='+widthDifference,
+                top: '+='+heightDifference, }, { duration: 450 } );
+            }, intervalTime);
+        }
+  };
+  
+  
+  Bubbling.init();
   
   var bezier_params = {
     start: {
-      x: jQuery('.bubble1').offset().left-52,
-      y: jQuery('.bubble1').offset().top,
+      x: jQuery('.bubble1').offset().left-(bubbleWidth/2),
+      y: jQuery('.bubble1').offset().top-(bubbleHeight/2),
     },
     end: {
-      x: jQuery('.bubble1').offset().left-52,
+      x: jQuery('.bubble1').offset().left-(bubbleWidth/2),
       y: 110,
     }
   }
